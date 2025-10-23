@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کافه رستوران Artin - سفارش آنلاین</title>
+    <link rel="stylesheet" href="https://cdn.fontcdn.ir/Font/Persian/IRANSans/IRANSans.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        :root {
+            --primary: #ff8c00;
+            --primary-dark: #e67e00;
+            --secondary: #4CAF50;
+            --info: #2196F3;
+            --danger: #f44336;
+            --warning: #ff9800;
+            --dark: #1a1a1a;
+            --darker: #121212;
+            --light: #f5f5f5;
+            --gray: #2c2c2c;
+        }
+        
+        body {
+            font-family: 'IRANSans', sans-serif;
+            direction: rtl;
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            padding: 15px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .header h1 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .dollar-rate-info {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 12px 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+        
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            background: rgba(255, 140, 0, 0.2);
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .marquee span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 15s linear infinite;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 16px;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+        
+        .category {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: var(--gray);
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+        
+        .category h2 {
+            color: var(--primary);
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            text-align: center;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .menu-item {
+            background: linear-gradient(to bottom, #333, #222);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+            border: 1px solid #444;
+        }
+        
+        .menu-item:active {
+            transform: scale(0.97);
+        }
+        
+        .menu-item-content {
+            padding: 12px;
+        }
+        
+        .menu-item h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .menu-item p {
+            font-size: 14px;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .price-dollar {
+            font-size: 13px;
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .prep-time {
+            font-size: 12px;
+            color: #ff8c00;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        
+        .menu-item button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 5px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .order-box {
+            background: var(--gray);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            border: 1px solid #444;
+        }
+        
+        .order-box h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+        
+        #orderList {
+            list-style: none;
+            margin-bottom: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #1c1c1c;
+            border-radius: 8px;
+        }
+        
+        #orderList li {
+            padding: 8px 10px;
+            border-bottom: 1px dashed #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #orderList li:last-child {
+            border-bottom: none;
+        }
+        
+        .item-count {
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+        }
+        
+        .total-price {
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--primary);
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .total-dollar {
+            font-weight: bold;
+            font-size: 16px;
+            color: #ffd700;
+            margin: 10px 0;
+            text-align: center;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #ffd700;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+            background: #1c1c1c;
+            color: #fff;
+        }
+        
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to bottom, #4caf50, #2e7d32);
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            flex: 2;
+        }
+        
+        .clear-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        
+        .card-info {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .card-info h3 {
+            color: #000;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .card-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            letter-spacing: 2px;
+            margin: 10px 0;
+            direction: ltr;
+            display: inline-block;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: monospace;
+        }
+        
+        .card-number:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+        
+        .card-number:active {
+            transform: scale(0.95);
+        }
+        
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        
+        .copy-notification.show {
+            transform: translateX(0);
+        }
+        
+        .copy-notification i {
+            margin-left: 10px;
+        }
+        
+        .name-style {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            margin-top: 10px;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+
+        .rate-info {
+            text-align: center;
+            color: #95a5a6;
+            font-size: 12px;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(149, 165, 166, 0.1);
+            border-radius: 8px;
+            border: 1px solid #34495e;
+        }
+        
+        @media (max-width: 480px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .card-number {
+                font-size: 16px;
+                padding: 8px 12px;
+            }
+            
+            .name-style {
+                font-size: 20px;
+            }
+            
+            .dollar-rate-info {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+        }
+        
+        .item-added {
+            animation: highlight 1s ease;
+        }
+        
+        @keyframes highlight {
+            0% { background-color: rgba(255, 140, 0, 0.3); }
+            100% { background-color: transparent; }
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>کافه رستوران Artin</h1>
+        <div class="marquee">
+            <span>به کافه رستوران Artin خوش آمدید - سفارش آنلاین خود را از اینجا ثبت کنید</span>
+        </div>
+    </div>
+
+    <div class="dollar-rate-info">
+        💰 نرخ لحظه‌ای دلار: <span id="current-rate">در حال دریافت...</span>
+    </div>
+
+    <!-- دسته برگر -->
+    <div class="category">
+        <h2>🍔 برگر</h2>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="addItem('برگر کوچک', 100000, 'برگر', 15)">
+                <div class="menu-item-content">
+                    <h3>برگر کوچک</h3>
+                    <p>100,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="100000">~ 0.92 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۵ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('برگر دوبل', 150000, 'برگر', 20)">
+                <div class="menu-item-content">
+                    <h3>برگر دوبل</h3>
+                    <p>150,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="150000">~ 1.38 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۲۰ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('برگر تک ویژه', 150000, 'برگر', 20)">
+                <div class="menu-item-content">
+                    <h3>برگر تک ویژه</h3>
+                    <p>150,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="150000">~ 1.38 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۲۰ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('برگر دوبل ویژه', 200000, 'برگر', 25)">
+                <div class="menu-item-content">
+                    <h3>برگر دوبل ویژه</h3>
+                    <p>200,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="200000">~ 1.83 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۲۵ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- دسته پیتزا -->
+    <div class="category">
+        <h2>🍕 پیتزا</h2>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="addItem('پیتزا مینی', 150000, 'پیتزا', 60)">
+                <div class="menu-item-content">
+                    <h3>پیتزا مینی</h3>
+                    <p>150,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="150000">~ 1.38 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۶۰-۱۲۰ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('پیتزا متوسط', 250000, 'پیتزا', 70)">
+                <div class="menu-item-content">
+                    <h3>پیتزا متوسط</h3>
+                    <p>250,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="250000">~ 2.29 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۶۰-۱۲۰ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('پیتزا خانواده', 350000, 'پیتزا', 80)">
+                <div class="menu-item-content">
+                    <h3>پیتزا خانواده</h3>
+                    <p>350,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="350000">~ 3.21 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۶۰-۱۲۰ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('پیتزا خانواده سینی فر', 650000, 'پیتزا', 90)">
+                <div class="menu-item-content">
+                    <h3>پیتزا خانواده سینی فر</h3>
+                    <p>650,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="650000">~ 5.96 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۶۰-۱۲۰ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- دسته هات داگ -->
+    <div class="category">
+        <h2>🌭 هات داگ</h2>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="addItem('هات داگ ساده', 80000, 'هات داگ', 10)">
+                <div class="menu-item-content">
+                    <h3>هات داگ ساده</h3>
+                    <p>80,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="80000">~ 0.73 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۰ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('هات داگ دو سوسیس', 130000, 'هات داگ', 12)">
+                <div class="menu-item-content">
+                    <h3>هات داگ دو سوسیس</h3>
+                    <p>130,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="130000">~ 1.19 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۲ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('هات داگ تک ویژه', 130000, 'هات داگ', 15)">
+                <div class="menu-item-content">
+                    <h3>هات داگ تک ویژه</h3>
+                    <p>130,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="130000">~ 1.19 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۵ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('هات داگ دوبل ویژه', 180000, 'هات داگ', 18)">
+                <div class="menu-item-content">
+                    <h3>هات داگ دوبل ویژه</h3>
+                    <p>180,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="180000">~ 1.65 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۸ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- دسته مرغ و سوخاری -->
+    <div class="category">
+        <h2>🍗 مرغ و سوخاری</h2>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="addItem('بال مرغ', 100000, 'مرغ', 20)">
+                <div class="menu-item-content">
+                    <h3>بال مرغ</h3>
+                    <p>100,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="100000">~ 0.92 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۲۰ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('پاچینی', 220000, 'مرغ', 25)">
+                <div class="menu-item-content">
+                    <h3>پاچینی</h3>
+                    <p>220,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="220000">~ 2.02 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۲۵ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('فیله سوخاری با سیب زمینی', 320000, 'مرغ', 30)">
+                <div class="menu-item-content">
+                    <h3>فیله سوخاری با سیب زمینی</h3>
+                    <p>320,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="320000">~ 2.94 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۳۰ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('ران مرغ سوخاری', 180000, 'مرغ', 25)">
+                <div class="menu-item-content">
+                    <h3>ران مرغ سوخاری</h3>
+                    <p>180,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="180000">~ 1.65 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۲۵ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- دسته سیب زمینی -->
+    <div class="category">
+        <h2>🍟 سیب زمینی</h2>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="addItem('سیب زمینی کوچک', 60000, 'سیب زمینی', 10)">
+                <div class="menu-item-content">
+                    <h3>سیب زمینی کوچک</h3>
+                    <p>60,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="60000">~ 0.55 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۰ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('سیب زمینی متوسط', 130000, 'سیب زمینی', 12)">
+                <div class="menu-item-content">
+                    <h3>سیب زمینی متوسط</h3>
+                    <p>130,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="130000">~ 1.19 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۲ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('سیب زمینی بزرگ', 180000, 'سیب زمینی', 15)">
+                <div class="menu-item-content">
+                    <h3>سیب زمینی بزرگ</h3>
+                    <p>180,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="180000">~ 1.65 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۵ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('سیب زمینی کوچک ویژه', 100000, 'سیب زمینی', 12)">
+                <div class="menu-item-content">
+                    <h3>سیب زمینی کوچک ویژه</h3>
+                    <p>100,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="100000">~ 0.92 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۲ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('سیب زمینی متوسط ویژه', 160000, 'سیب زمینی', 15)">
+                <div class="menu-item-content">
+                    <h3>سیب زمینی متوسط ویژه</h3>
+                    <p>160,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="160000">~ 1.47 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۵ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('سیب زمینی بزرگ ویژه', 240000, 'سیب زمینی', 18)">
+                <div class="menu-item-content">
+                    <h3>سیب زمینی بزرگ ویژه</h3>
+                    <p>240,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="240000">~ 2.20 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۸ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- دسته ساندویچ -->
+    <div class="category">
+        <h2>🥪 ساندویچ</h2>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="addItem('ساندویچ مرغ', 90000, 'ساندویچ', 8)">
+                <div class="menu-item-content">
+                    <h3>ساندویچ مرغ</h3>
+                    <p>90,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="90000">~ 0.83 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۸ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('ساندویچ همبرگر', 110000, 'ساندویچ', 10)">
+                <div class="menu-item-content">
+                    <h3>ساندویچ همبرگر</h3>
+                    <p>110,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="110000">~ 1.01 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۰ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('ساندویچ رست بیف', 140000, 'ساندویچ', 12)">
+                <div class="menu-item-content">
+                    <h3>ساندویچ رست بیف</h3>
+                    <p>140,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="140000">~ 1.28 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۱۲ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('ساندویچ تن ماهی', 80000, 'ساندویچ', 7)">
+                <div class="menu-item-content">
+                    <h3>ساندویچ تن ماهی</h3>
+                    <p>80,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="80000">~ 0.73 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۷ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- دسته قهوه -->
+    <div class="category">
+        <h2>☕ قهوه</h2>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="addItem('لته', 70000, 'قهوه', 5)">
+                <div class="menu-item-content">
+                    <h3>لته</h3>
+                    <p>70,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="70000">~ 0.64 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۵ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('تک', 20000, 'قهوه', 3)">
+                <div class="menu-item-content">
+                    <h3>تک</h3>
+                    <p>20,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="20000">~ 0.18 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۳ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('دبل', 40000, 'قهوه', 4)">
+                <div class="menu-item-content">
+                    <h3>دبل</h3>
+                    <p>40,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="40000">~ 0.37 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۴ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('شیر داغ', 20000, 'قهوه', 3)">
+                <div class="menu-item-content">
+                    <h3>شیر داغ</h3>
+                    <p>20,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="20000">~ 0.18 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۳ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('کاپوچینو', 60000, 'قهوه', 5)">
+                <div class="menu-item-content">
+                    <h3>کاپوچینو</h3>
+                    <p>60,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="60000">~ 0.55 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۵ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- دسته عصرانه -->
+    <div class="category">
+        <h2>🍵 عصرانه</h2>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="addItem('چایی', 15000, 'عصرانه', 3)">
+                <div class="menu-item-content">
+                    <h3>چایی</h3>
+                    <p>15,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="15000">~ 0.14 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۳ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('چایی نپتون', 10000, 'عصرانه', 3)">
+                <div class="menu-item-content">
+                    <h3>چایی نپتون</h3>
+                    <p>10,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="10000">~ 0.09 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۳ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('کیک قاچی', 40000, 'عصرانه', 5)">
+                <div class="menu-item-content">
+                    <h3>کیک قاچی</h3>
+                    <p>40,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="40000">~ 0.37 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۵ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('کیک شکلاتی', 50000, 'عصرانه', 5)">
+                <div class="menu-item-content">
+                    <h3>کیک شکلاتی</h3>
+                    <p>50,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="50000">~ 0.46 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۵ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- دسته نوشیدنی -->
+    <div class="category">
+        <h2>🥤 نوشیدنی</h2>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="addItem('نوشابه کوچک', 25000, 'نوشیدنی', 2)">
+                <div class="menu-item-content">
+                    <h3>نوشابه کوچک</h3>
+                    <p>25,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="25000">~ 0.23 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۲ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('نوشابه بزرگ', 75000, 'نوشیدنی', 2)">
+                <div class="menu-item-content">
+                    <h3>نوشابه بزرگ</h3>
+                    <p>75,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="75000">~ 0.69 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۲ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('دوغ کوچک', 30000, 'نوشیدنی', 2)">
+                <div class="menu-item-content">
+                    <h3>دوغ کوچک</h3>
+                    <p>30,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="30000">~ 0.28 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۲ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="addItem('دوغ بزرگ', 60000, 'نوشیدنی', 2)">
+                <div class="menu-item-content">
+                    <h3>دوغ بزرگ</h3>
+                    <p>60,000 تومان</p>
+                    <p class="price-dollar" data-price-toman="60000">~ 0.55 دلار</p>
+                    <p class="prep-time">زمان آماده‌سازی: ۲ دقیقه</p>
+                    <button>افزودن به سبد</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="order-box">
+        <h3>سبد خرید شما</h3>
+        <ul id="orderList"></ul>
+        <p class="total-price">مجموع قیمت: <span id="total">0</span> تومان</p>
+        <p class="total-dollar">💵 مبلغ دلاری: <span id="total-dollar">0</span> دلار</p>
+
+        <input type="text" id="name" placeholder="نام مشتری">
+        <input type="text" id="phone" placeholder="شماره">
+        <textarea id="note" placeholder="توضیحات (اختیاری)"></textarea>
+
+        <div class="action-buttons">
+            <button class="submit-btn" onclick="sendOrder()">تایید و ارسال سفارش</button>
+            <button class="clear-btn" onclick="clearOrder()">خالی کردن سبد</button>
+        </div>
+    </div>
+
+    <div class="card-info">
+        <h3>برای پرداخت آنلاین مبلغ سفارش از کارت زیر استفاده کنید:</h3>
+        <div class="card-number" onclick="copyCardNumber()">
+            5894-6311-8809-0575
+            <i class="fas fa-copy"></i>
+        </div>
+        <div class="name-style">ARTIN RESTAURANT</div>
+    </div>
+
+    <div class="rate-info">
+        💎 نرخ بر اساس قیمت لحظه‌ای بازار - منبع: TGJU.org
+    </div>
+</div>
+
+<script>
+    let items = [];
+    let total = 0;
+    let dollarRate = 109000;
+
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzYWA-JS3bPb8NaS0ZcbQB-XDNic660nUaYWY4TrU8QxZMKdPZ7t_B4AORmoJk7442m/exec";
+    
+    async function getDollarRate() {
+        try {
+            const response = await fetch('https://api.tgju.online/v1/data/sana/json');
+            const data = await response.json();
+            const newRate = parseInt(data.sana.buy);
+            if (newRate && newRate > 10000) {
+                dollarRate = newRate;
+                updateDollarDisplay();
+                updateAllDollarPrices();
+            }
+        } catch (error) {
+            console.error('خطا در دریافت نرخ دلار:', error);
+            updateDollarDisplay();
+        }
+    }
+
+    function updateDollarDisplay() {
+        const rateElement = document.getElementById('current-rate');
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('fa-IR');
+        rateElement.textContent = `${dollarRate.toLocaleString()} تومان - آخرین بروزرسانی: ${timeString}`;
+    }
+
+    function updateAllDollarPrices() {
+        const dollarElements = document.querySelectorAll('.price-dollar');
+        dollarElements.forEach(element => {
+            const tomanPrice = parseInt(element.getAttribute('data-price-toman'));
+            const dollarPrice = tomanPrice / dollarRate;
+            element.textContent = `~ ${dollarPrice.toFixed(2)} دلار`;
+        });
+        updateDollarTotal();
+    }
+
+    function updateDollarTotal() {
+        const dollarTotal = total / dollarRate;
+        document.getElementById('total-dollar').textContent = dollarTotal.toFixed(2);
+    }
+
+    function copyCardNumber() {
+        const cardNumber = '5894631188090575';
+        navigator.clipboard.writeText(cardNumber).then(() => {
+            showNotification('شماره کارت با موفقیت کپی شد!');
+        }).catch(err => {
+            console.error('خطا در کپی کردن شماره کارت: ', err);
+            showNotification('خطا در کپی کردن شماره کارت', true);
+        });
+    }
+
+    function showNotification(message, isError = false) {
+        const notification = document.createElement('div');
+        notification.className = `copy-notification ${isError ? 'error' : ''}`;
+        notification.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i> ${message}`;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
+
+    function addItem(name, price, imageUrl, prepTime){
+        const existing = items.find(i => i.name === name);
+        if(existing){
+            existing.count +=1;
+        } else {
+            items.push({name, price, count:1, image: imageUrl, prepTime});
+        }
+        
+        const orderList = document.getElementById("orderList");
+        orderList.classList.remove("item-added");
+        void orderList.offsetWidth;
+        orderList.classList.add("item-added");
+        
+        updateOrderList();
+    }
+
+    function updateOrderList(){
+        const list = document.getElementById("orderList");
+        list.innerHTML = "";
+        total = 0;
+        
+        if (items.length === 0) {
+            list.innerHTML = '<li style="justify-content: center; color: #888;">سبد خرید شما خالی است</li>';
+        } else {
+            items.forEach(i=>{
+                const itemTotal = i.price * i.count;
+                list.innerHTML += `
+                    <li>
+                        <span>${i.name} <span class="item-count">${i.count}</span></span>
+                        <span>${itemTotal.toLocaleString()} تومان</span>
+                    </li>`;
+                total += itemTotal;
+            });
+        }
+        
+        document.getElementById("total").innerText = total.toLocaleString();
+        updateDollarTotal();
+    }
+
+    function clearOrder(){
+        if(items.length === 0) return;
+        
+        if(confirm('آیا از خالی کردن سبد خرید اطمینان دارید؟')) {
+            items = [];
+            total = 0;
+            updateOrderList();
+        }
+    }
+
+    async function sendOrder(){
+        const name = document.getElementById("name").value;
+        const phone = document.getElementById("phone").value;
+        const note = document.getElementById("note").value;
+
+        if(!name || !phone){
+            alert("لطفا نام مشتری و شماره را وارد کنید");
+            return;
+        }
+        
+        if(items.length === 0){
+            alert("سبد خرید شما خالی است");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("phone", phone);
+        formData.append("note", note);
+        formData.append("items", items.map(i => `${i.name} (${i.count})`).join(" - "));
+        formData.append("total", total);
+        formData.append("dollar_rate", dollarRate);
+        formData.append("dollar_total", (total / dollarRate).toFixed(2));
+
+        const submitBtn = document.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'در حال ارسال...';
+        submitBtn.disabled = true;
+
+        try {
+            const response = await fetch(WEB_APP_URL, {
+                method: "POST",
+                body: formData
+            });
+            
+            const data = await response.text();
+            
+            alert("سفارش شما با موفقیت ثبت شد");
+            clearOrder();
+            document.getElementById("name").value = "";
+            document.getElementById("phone").value = "";
+            document.getElementById("note").value = "";
+        } catch (err) {
+            alert("خطا در ارسال سفارش. لطفا دوباره تلاش کنید.");
+            console.error(err);
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        getDollarRate();
+        setInterval(getDollarRate, 300000);
+        updateAllDollarPrices();
+    });
+</script>
+
+</body>
+</html>
